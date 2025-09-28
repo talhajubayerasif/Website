@@ -1,0 +1,322 @@
+/* =========================
+   GENERAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--bg-color);
+}
+
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+    --bg-color: #fff;
+    --text-color: #333;
+    --header-bg: #237bdbf5;
+    --section-bg: #fff;
+    --card-bg: #f9f9f9;
+    --card-text: #222;
+    --accent-color: #237bdbf5;
+    --overlay-dark: rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+    --header-bg: #1f1f1f;
+    --section-bg: #1e1e1e;
+    --card-bg: #2a2a2a;
+    --card-text: #f1f1f1;
+    --accent-color: #4dabf7;
+    --overlay-dark: rgba(0, 0, 0, 0.7);
+}
+
+/* Smooth transitions */
+body, header, section, footer, .subsection, .blog-post, a, #theme-toggle {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* =========================
+   HEADER & NAVIGATION
+========================= */
+header {
+    background: var(--header-bg);
+    color: var(--text-color);
+    padding: 10px 10px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+    nav a {
+        color: var(--text-color);
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+        nav a:hover {
+            color: lightpink;
+        }
+
+/* Theme Toggle Button */
+#theme-toggle {
+    margin-left: 20px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+body.dark-mode #theme-toggle {
+    background: #333;
+    color: #fff;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+section {
+    background: var(--section-bg);
+    padding: 100px 20px;
+    min-height: 100vh;
+}
+
+/* Home Section */
+#home {
+    position: relative;
+    background: url('images/chill.jpg') no-repeat center/cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff; /* Always light text for visibility */
+}
+
+body.dark-mode #home {
+    color: #f1f1f1;
+}
+
+#home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--overlay-dark);
+}
+
+/* Home Text Animation */
+#home h1,
+#home p {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+}
+
+#home h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation-delay: 0.5s;
+}
+
+#home p {
+    animation-delay: 1.5s;
+}
+
+/* Social icons in Home */
+.social-icons-home {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+    .social-icons-home img {
+        width: 40px;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .social-icons-home a:hover img {
+        transform: scale(1.1);
+    }
+
+/* =========================
+   OTHER SECTIONS
+========================= */
+h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: var(--card-text);
+    text-align: center;
+}
+
+p {
+    max-width: 700px;
+    margin: 0 auto 20px auto;
+    text-align: center;
+    color: var(--text-color);
+}
+
+/* About Section */
+.about-container {
+    background-color: var(--section-bg);
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.subsection {
+    background: var(--card-bg);
+    color: var(--card-text);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .subsection h3 {
+        text-align: center;
+        color: var(--accent-color);
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+    }
+
+/* Projects Section */
+.projects-container {
+    background-color: var(--section-bg);
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Blog Section */
+.blog-container {
+    background-color: var(--section-bg);
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.blog-post {
+    background: var(--card-bg);
+    color: var(--card-text);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /**border: 1px solid #444;
+    margin: 0 auto;*/
+}
+
+    .blog-post h3 {
+        text-align: center;
+        color: var(--card-text);
+        margin-bottom: 10px;
+    }
+
+    .blog-post .post-date {
+        text-align: center;
+        color: #777;
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    .blog-post a {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .blog-post a:hover {
+            text-decoration: underline;
+        }
+
+/* Contact Section */
+#contact {
+    background: var(--section-bg);
+    color: var(--text-color);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background: var(--header-bg);
+    color: var(--text-color);
+    text-align: center;
+    padding: 30px;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+    }
+
+        nav a {
+            margin: 10px;
+        }
+
+    #home h1 {
+        font-size: 2rem;
+    }
+
+    .subsection {
+        padding: 20px;
+    }
+}
