@@ -34,7 +34,7 @@ themeToggle.addEventListener("click", () => {
 const backToTopButton = document.getElementById("backToTop");
 
 window.onscroll = function() {
-    this.scrollFunction();
+    scrollFunction();
 };
 
 function scrollFunction() {

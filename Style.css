@@ -298,7 +298,7 @@ footer {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 99;
+    z-index: 2000;
     font-size: 18px;
     border: none;
     outline: none;
