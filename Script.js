@@ -33,21 +33,14 @@ themeToggle.addEventListener("click", () => {
 // Back to Top Button
 const backToTopButton = document.getElementById("backToTop");
 
-window.onscroll = function() {
-    scrollFunction();
-};
-
-function scrollFunction() {
-    if (window.innerWidth <=768) {
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            backToTopButton.style.display = "block";
-        } else {
-            backToTopButton.style.display = "none";
-        }
+window.addEventListener("scroll", () => {
+    // Check if scrolled more than 300px
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.classList.add("active");
     } else {
-        backToTopButton.style.display = "none";
+        backToTopButton.classList.remove("active");
     }
-};
+});
 
 backToTopButton.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

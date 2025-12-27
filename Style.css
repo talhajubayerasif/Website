@@ -294,7 +294,7 @@ footer {
    BACK TO TOP BUTTON
 ========================= */
 #backToTop {
-    display: none; /* Hidden by default */
+    display: none; /* Hidden by default (Desktop) */
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -307,10 +307,10 @@ footer {
     cursor: pointer;
     padding: 15px;
     border-radius: 50px;
-    font-size: 18px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, background-color 0.3s;
 }
+
 #backToTop:hover {
     background-color: #555;
 }
@@ -394,5 +394,9 @@ footer {
     #backToTop {
         bottom: 20px;
         right: 20px;
+    }
+
+    #backToTop.active {
+        display: block;
     }
 }
