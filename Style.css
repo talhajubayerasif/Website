@@ -294,10 +294,10 @@ footer {
    BACK TO TOP BUTTON
 ========================= */
 #backToTop {
-    display: none; /* Hidden by default (Desktop) */
+    display: flex; 
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 60px;
     z-index: 2000;
     font-size: 18px;
     border: none;
@@ -308,7 +308,17 @@ footer {
     padding: 15px;
     border-radius: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+    /* New Visibility Logic */
+    opacity: 0;            /* Invisible */
+    pointer-events: none;  /* Unclickable when hidden */
     transition: opacity 0.3s, background-color 0.3s;
+}
+
+/* Add this new rule for when JS adds the class */
+#backToTop.active {
+    opacity: 1;            /* Visible */
+    pointer-events: auto;  /* Clickable */
 }
 
 #backToTop:hover {
