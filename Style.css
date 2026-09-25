@@ -45,6 +45,39 @@ body, header, section, footer, .subsection, .blog-post, a, #theme-toggle {
 }
 
 /* =========================
+   TEXT ACCENT UTILITIES
+   (replaces one-off inline styles)
+========================= */
+.home-text,
+.footer-text {
+    color: #fff;
+}
+
+body.dark-mode .home-text,
+body.dark-mode .footer-text {
+    color: #f1f1f1;
+}
+
+.text-accent-royalblue { color: royalblue; }
+.text-accent-blueviolet { color: blueviolet; }
+.text-accent-steelblue { color: steelblue; }
+
+body.dark-mode .text-accent-royalblue { color: #6ea8fe; }
+body.dark-mode .text-accent-blueviolet { color: #b794f6; }
+body.dark-mode .text-accent-steelblue { color: #63b3ed; }
+
+/* =========================
+   FOCUS STATES (accessibility)
+========================= */
+nav a:focus-visible,
+#theme-toggle:focus-visible,
+#backToTop:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* =========================
    HEADER & NAVIGATION
 ========================= */
 header {
@@ -193,8 +226,11 @@ p {
     color: var(--text-color);
 }
 
-/* About Section */
-.about-container {
+/* Shared section-content container (About, Projects, Blog, Contact) */
+.about-container,
+.projects-container,
+.blog-container,
+.contact-container {
     background-color: var(--section-bg);
     max-width: 800px;
     margin: 0 auto;
@@ -218,26 +254,72 @@ p {
         font-size: 1.5rem;
     }
 
-/* Projects Section */
-.projects-container {
-    background-color: var(--section-bg);
-    max-width: 800px;
+/* =========================
+   EXPERIENCE TIMELINE
+========================= */
+.timeline {
+    position: relative;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+    max-width: 600px;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--accent-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -30px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 0 4px var(--card-bg);
+}
+
+.timeline-content h4 {
+    color: var(--card-text);
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+.timeline-date {
+    display: block;
+    font-size: 0.85rem;
+    color: #777;
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.timeline-content p {
+    text-align: left;
+    margin: 0;
+    max-width: none;
+}
+
+body.dark-mode .timeline-date {
+    color: #aaa;
 }
 
 /* Blog Section */
-.blog-container {
-    background-color: var(--section-bg);
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
 .blog-post {
     background: var(--card-bg);
     color: var(--card-text);
@@ -274,17 +356,181 @@ p {
             text-decoration: underline;
         }
 
-/* Contact Section */
-#contact {
-    background: var(--section-bg);
-    color: var(--text-color);
+/* =========================
+   PHOTOGRAPHY GALLERY
+========================= */
+.gallery-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Lightbox */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+@media (max-width: 768px) {
+    .lightbox-nav {
+        font-size: 1.2rem;
+        padding: 8px 12px;
+    }
+}
+
+/* Contact Form (staged for the planned PHP-backed contact form; not yet in markup) */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+    .contact-form input,
+    .contact-form textarea { 
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .contact-form button {
+        padding: 10px 20px;
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .contact-form button:hover {
+        background-color: #555;
+    }
+
+/* =========================
+   RESUME DOWNLOAD BUTTON
+========================= */
+.resume-download {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background-color: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.resume-btn:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+body.dark-mode .resume-btn:hover {
+    background-color: #3a3a3a;
+}
+
 
 /* =========================
    FOOTER
 ========================= */
 footer {
-    background: var(--header-bg);
+    background-color: var(--header-bg);
     color: var(--text-color);
     text-align: center;
     padding: 30px;

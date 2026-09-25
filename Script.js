@@ -1,10 +1,14 @@
 ﻿// Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        target.scrollIntoView({ behavior: 'smooth' });
     });
 });
 
@@ -44,4 +48,51 @@ window.addEventListener("scroll", () => {
 
 backToTopButton.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Photography Lightbox Gallery
+const galleryItems = document.querySelectorAll('.gallery-item img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+
+let currentIndex = 0;
+const imageSources = Array.from(galleryItems).map(img => img.src);
+
+function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = imageSources[currentIndex];
+    lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+}
+
+function showImage(offset) {
+    currentIndex = (currentIndex + offset + imageSources.length) % imageSources.length;
+    lightboxImg.src = imageSources[currentIndex];
+}
+
+galleryItems.forEach((img, index) => {
+    img.addEventListener('click', () => openLightbox(index));
+});
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', () => showImage(-1));
+lightboxNext.addEventListener('click', () => showImage(1));
+
+// Close on background click (not on image/buttons)
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+});
+
+// Keyboard controls
+document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage(-1);
+    if (e.key === 'ArrowRight') showImage(1);
 });
